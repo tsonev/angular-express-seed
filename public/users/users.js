@@ -92,7 +92,8 @@ function usersAddController($http) {
 		var payload = {};
 
 		payload.user = {};
-		payload.user["name"] = users.name;
+		payload.user["name"] = users.user.name;
+		payload.user["password"] = users.user.password;
 
 		// Simple GET request example:
 		$http({
