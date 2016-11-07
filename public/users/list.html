@@ -1,3 +1,8 @@
 <div>
-    <blockquote ng-repeat="user in users.list track by user._id">{{user}}</blockquote>
+    <div ng-repeat="user in users.list track by user._id">
+        <a ng-href="#!/users/edit/{{user._id}}">{{user.name}}</a>
+        <blockquote>
+            {{user}}
+        </blockquote>
+    </div>
 </div>

@@ -102,6 +102,7 @@ function usersAddController($http, $routeParams) {
 			}).then(function successCallback(response) {
 				console.log(response);
 				users.user = response.data.data;
+				users.user.qr = response.data.qr;
 			}, function errorCallback(response) {
 				console.log(response);
 				users.user = {};
@@ -113,6 +114,10 @@ function usersAddController($http, $routeParams) {
 		var payload = {};
 
 		payload.user = {};
+		if(users.user.hasOwnProperty("_id")){
+			payload.user["_id"] = users.user._id;
+		}
+
 		payload.user["name"] = users.user.name;
 		payload.user["password"] = users.user._password;
 		payload.user["auth"] = users.user.auth;
