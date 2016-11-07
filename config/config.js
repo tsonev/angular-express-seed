@@ -1,3 +1,3 @@
 "use strict";
-exports.secret = "";
+exports.secret = ""; //Strong secret
 exports.length = 128;
