@@ -103,6 +103,7 @@ function usersAddController($http) {
 		}).then(function successCallback(response) {
 			console.log(response);
 			users.user = response.data.data;
+			users.user.qr = response.data.qr;
 			delete users.error;
 		}, function errorCallback(response) {
 			console.log(response);

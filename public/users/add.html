@@ -8,4 +8,10 @@
             Add
         </button>
     </div>
+    <div ng-if="users.user.qr">
+        <img alt="QR Code" data-ng-src="{{users.user.qr}}" />
+    </div>
+    <div>
+        {{users.user}}
+    </div>
 </div>
