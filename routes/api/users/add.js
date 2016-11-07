@@ -13,7 +13,6 @@ router.post('/', function(req, res, next) {
 
 	user = req.body.user;
 
-
 	if(user.name && user.password) {
 
 		var user1 = new userModel.User({name: user.name});

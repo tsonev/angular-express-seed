@@ -1,17 +1,76 @@
 <div>
-    <p>Add user:</p>
-    <div><input type="text" ng-model="users.user.name" /></div>
-    <div><input type="password" ng-model="users.user.password" /></div>
-    <span ng-if="users.error">{{users.error}}</span>
-    <div>
-        <button ng-click="users.add()">
-            Add
-        </button>
-    </div>
-    <div ng-if="users.user.qr">
-        <img alt="QR Code" data-ng-src="{{users.user.qr}}" />
-    </div>
-    <div>
-        {{users.user}}
-    </div>
+    <form>
+        <fieldset>
+            <legend>Add user:</legend>
+            <div><input type="text" ng-model="users.user.name"/></div>
+            <div><input type="password" ng-model="users.user._password"/></div>
+        </fieldset>
+
+        <fieldset>
+                <legend>
+            Means of authentication:
+                </legend>
+            <ul>
+                <li>
+                    <input type="checkbox" id="auth.password" ng-model="users.user.auth.password"/>
+                    <label for="auth.password">
+                        Username / password
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="auth.totp" ng-model="users.user.auth.totp"/>
+                    <label for="auth.totp">
+                        Time based one time password
+                    </label>
+                </li>
+                <li>
+                    <input type="checkbox" id="auth.certificate" ng-model="users.user.auth.certificate"/>
+                    <label for="auth.certificate">
+                        Certificate
+                    </label>
+                </li>
+            </ul>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                Roles:
+            </legend>
+            <select multiple ng-model="users.user.roles">
+                <option value="admin">Administrator</option>
+                <option value="moderator">Moderator</option>
+                <option value="user">User</option>
+            </select>
+        </fieldset>
+
+        <fieldset ng-if="users.error">
+            <legend>
+                Error:
+            </legend>
+            {{users.error}}
+        </fieldset>
+
+        <div>
+            <button ng-click="users.add()">
+                Add
+            </button>
+        </div>
+
+        <fieldset ng-if="users.user.qr">
+            <legend>
+                QR Code:
+            </legend>
+            <img alt="QR Code" data-ng-src="{{users.user.qr}}"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                User Object:
+            </legend>
+            <blockquote>
+                {{users.user}}
+            </blockquote>
+        </fieldset>
+
+    </form>
 </div>

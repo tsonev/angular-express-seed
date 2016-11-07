@@ -22,6 +22,12 @@ angular.module('myApp.users')
 				controller: 'UsersAddCtrl',
 				controllerAs: "users",
 				bindToController: true
+			})
+			.when('/users/edit/:userId', {
+				templateUrl: 'users/add.html',
+				controller: 'UsersAddCtrl',
+				controllerAs: "users",
+				bindToController: true
 			});
 	}]);
 
@@ -32,10 +38,6 @@ usersController.$inject = ["$scope"];
 
 function usersController($scope) {
 	var users = this;
-
-	users.test = {"param": "value"};
-
-	console.log(users);
 
 	return users;
 }
@@ -75,25 +77,46 @@ function usersListController($http) {
 angular.module('myApp.users')
 	.controller('UsersAddCtrl', usersAddController);
 
-usersAddController.$inject = ["$http"];
+usersAddController.$inject = ["$http", "$routeParams"];
 
-function usersAddController($http) {
+function usersAddController($http, $routeParams) {
 	var users = this;
 
 	users.user = {};
 
 	users.add = addUser;
 
+
+	init();
+
 	return users;
 	///
 
+	function init() {
+		var id = $routeParams.userId || undefined;
+
+		if(angular.isDefined(id)) {
+			$http({
+				method: 'GET',
+				url: '/api/users/list/' + id
+			}).then(function successCallback(response) {
+				console.log(response);
+				users.user = response.data.data;
+			}, function errorCallback(response) {
+				console.log(response);
+				users.user = {};
+			});
+		}
+	}
 
 	function addUser() {
 		var payload = {};
 
 		payload.user = {};
 		payload.user["name"] = users.user.name;
-		payload.user["password"] = users.user.password;
+		payload.user["password"] = users.user._password;
+		payload.user["auth"] = users.user.auth;
+		payload.user["roles"] = users.user.roles;
 
 		// Simple GET request example:
 		$http({
