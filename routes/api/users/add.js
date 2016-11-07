@@ -29,7 +29,7 @@ router.post('/', function (req, res, next) {
 
 
 	} else {
-		response.error = {message: "No username"};
+		response.error = {message: "No username or password filled in"};
 
 		res.send(404, response);
 	}

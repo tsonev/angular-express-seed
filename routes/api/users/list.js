@@ -25,15 +25,25 @@ router.get('/:id', function(req, res, next) {
 	}
 	userModel.User.findOne(search, function(err, userObj) {
 
-		QRCode.toDataURL(userObj.totp.otpauth_url, function (err, data_url) {
+		if(err || !userObj) {
 
-			response.data = userObj;
+			response.error = {message: "No such id"};
 
-			response.qr = data_url;
+			res.send(404, response);
 
-			res.status(200).send(response);
+		} else {
 
-		});
+			QRCode.toDataURL(userObj.totp.otpauth_url, function (err, data_url) {
+
+				response.data = userObj;
+
+				response.qr = data_url;
+
+				res.status(200).send(response);
+
+			});
+
+		}
 
 	})
 
